@@ -1,18 +1,33 @@
 # -*- coding: utf-8 -*-
 """
 Created on Wed Nov 29 13:46:20 2017
-
 @author: Anaïs Bonnet (A20411100) Yohann Fallourd (A20409789)
 """
 import sys
 
+#==============================================================================
+#Method that return the total cost of a given set "selected_set"
+#cost [in]: List where the ith element is the cost of the (i+1)th set
+#selected_set [in]: List of the number of the selected set
+#[out]: Total cost of "selected_set"
+#==============================================================================
 def total_cost(cost, selected_set):
     total_cost = 0
     for x in selected_set:
         total_cost = total_cost + cost[x - 1]
     return total_cost
 
-
+#==============================================================================
+#Method that return true if the solution entered is feasible 
+#   and returns false otherwise
+#p [in]: Integer that represent the minimal coverage requirement
+#requirement [in]: List where the ith element is the required minimum
+#   coverage for the (i+1)th set
+#list_set [in]: List where the ith element is a list of all the numbers 
+#   in the (i+1)th set
+#selected_set [in]: List of the number of the selected set
+#[out]: Boolean true if the solution is feasible or false if it isn't
+#==============================================================================
 def is_feasible(p, requirement, list_set, selected_set):
     list_coverage = [0] * len(requirement)
 
@@ -30,7 +45,17 @@ def is_feasible(p, requirement, list_set, selected_set):
     else:
         return False
 
-
+#==============================================================================
+#Method that return true if the instance is valid and returns false otherwise
+#informations [in]: Array where the first element is the number of elements
+#    of the instance and the second is the number of sets
+#requirement [in]: List where the ith element is the required minimum
+#   coverage for the (i+1)th set
+#list_set [in]: List where the ith element is a list of all the numbers 
+#   in the (i+1)th set
+#cost [in]: List where the ith element is the cost of the (i+1)th set
+#[out]: Boolean true if the instance is valid or false if it isn't
+#==============================================================================
 def is_instance_valid(informations, requirement, list_set, cost):
     if informations[0] == len(requirement) and informations[1] == len(list_set) and informations[1] == len(cost):
         return True
@@ -80,9 +105,7 @@ if is_minimal:
 else:
     final_sentence = final_sentence + "isn't minimal"
 
-if is_instance_valid(informations, requirement, list_set, cost):
-    print("The instance entered as input is valid")
-else:
+if not is_instance_valid(informations, requirement, list_set, cost):
     print("The instance entered as input isn't valid ")
 
 print(final_sentence)
